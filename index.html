@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Texas Pickleball — Community Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1a7a4a;--gl:#e8f5ee;--gd:#0f5233;
+  --yellow:#f5c518;--yl:#fffbe6;
+  --dark:#0d1f15;--mid:#2a3d30;
+  --text:#1a2820;--muted:#5a7060;--border:#c8ddd0;
+  --bg:#f4f8f5;--white:#fff;
+  --r:14px;--shadow:0 2px 18px rgba(10,40,20,0.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px;-webkit-text-size-adjust:100%;font-size:17px;}
+
+.header{background:var(--dark);padding:36px 20px 30px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(26,122,74,0.07) 24px,rgba(26,122,74,0.07) 26px);}
+.hi{position:relative;z-index:1;}
+.badge{display:inline-block;background:var(--green);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:6px 18px;border-radius:24px;margin-bottom:16px;}
+.header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,9vw,60px);color:#fff;letter-spacing:2px;line-height:1.05;margin-bottom:12px;}
+.header h1 span{color:var(--yellow);}
+.header p{color:#8fa898;font-size:16px;max-width:420px;margin:0 auto;line-height:1.65;}
+
+.promo{background:var(--yellow);padding:13px 20px;text-align:center;font-size:15px;font-weight:500;color:var(--dark);line-height:1.5;}
+
+.wrap{max-width:700px;margin:0 auto;padding:28px 16px 0;}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;margin-bottom:20px;box-shadow:var(--shadow);}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:var(--gd);margin-bottom:6px;}
+.ssub{font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.55;}
+
+.q{margin-bottom:30px;}
+.q:last-child{margin-bottom:0;}
+.ql{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px;display:flex;align-items:flex-start;gap:8px;line-height:1.45;}
+.dot{width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;flex-shrink:0;margin-top:7px;}
+.qh{font-size:14px;color:var(--muted);margin-bottom:12px;}
+
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opts.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:500px){.opts.g2{grid-template-columns:1fr;}}
+
+.ol{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s;background:var(--bg);font-size:17px;color:var(--text);line-height:1.45;user-select:none;-webkit-tap-highlight-color:transparent;}
+.ol:active{transform:scale(0.985);}
+.ol:hover,.ol.on{border-color:var(--green);background:var(--gl);}
+.ol input{margin-top:3px;accent-color:var(--green);width:20px;height:20px;flex-shrink:0;cursor:pointer;}
+
+.subs{margin-left:32px;margin-top:8px;display:none;flex-direction:column;gap:8px;}
+.subs.show{display:flex;}
+.sl{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #dde8e0;border-radius:8px;cursor:pointer;font-size:16px;color:var(--mid);background:#f0f7f3;transition:all .12s;user-select:none;-webkit-tap-highlight-color:transparent;}
+.sl:hover,.sl.on{border-color:var(--green);background:var(--gl);}
+.sl input{accent-color:var(--green);width:18px;height:18px;cursor:pointer;flex-shrink:0;}
+
+.branch{display:none;margin-bottom:20px;}
+.branch.show{display:block;}
+.bh{display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--gd);border-radius:12px 12px 0 0;}
+.bi{font-size:22px;}
+.bt{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;}
+.bb{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);padding:26px 22px;background:var(--white);}
+.bq{margin-bottom:26px;}
+.bq:last-child{margin-bottom:0;}
+
+.dark-card{background:var(--dark);border-radius:var(--r);padding:28px 24px;margin-bottom:22px;}
+.dark-card .stitle{color:var(--yellow);}
+.dark-card .ssub{color:#8fa898;}
+.dark-card .ql{color:#e0ece5;}
+.dark-card .qh{color:#8fa898;}
+.dark-card .ol{background:var(--mid);border-color:#3a5040;color:#d0e4d8;font-size:17px;}
+.dark-card .ol:hover,.dark-card .ol.on{border-color:var(--yellow);background:rgba(245,197,24,.12);color:#fff;}
+
+.credit{background:var(--yl);border:2px solid var(--yellow);border-radius:var(--r);padding:22px 20px;margin-bottom:24px;display:flex;gap:16px;align-items:flex-start;}
+@media(max-width:500px){.credit{flex-direction:column;gap:10px;}}
+.cicon{font-size:32px;flex-shrink:0;}
+.ctitle{font-size:17px;font-weight:600;color:var(--dark);margin-bottom:6px;}
+.ctext{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.cinput{width:100%;padding:13px 16px;border:2px solid #e0c84a;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:16px;background:#fff;color:var(--text);outline:none;transition:border-color .15s;}
+.cinput:focus{border-color:var(--green);}
+.cinput::placeholder{color:#b0a060;}
+
+.sbtn{width:100%;padding:20px;background:var(--green);color:#fff;border:none;border-radius:var(--r);font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;transition:background .15s,transform .1s;margin-bottom:16px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.sbtn:hover{background:var(--gd);}
+.sbtn:active{transform:scale(0.98);}
+
+.err{display:none;color:#c0392b;font-size:14px;margin-top:8px;padding:8px 12px;background:#fdf0ee;border-radius:8px;border-left:3px solid #c0392b;line-height:1.5;}
+
+.pnote{text-align:center;font-size:14px;color:var(--muted);margin:10px 0 36px;line-height:1.7;}
+.pnote strong{color:var(--gd);}
+
+.success{display:none;text-align:center;padding:70px 20px;}
+.success.show{display:block;}
+.sico{font-size:72px;margin-bottom:22px;}
+.stit{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gd);letter-spacing:2px;margin-bottom:14px;}
+.stxt{font-size:17px;color:var(--muted);max-width:400px;margin:0 auto;line-height:1.75;}
+
+@media(max-width:600px){
+  .card,.bb{padding:20px 16px;}
+  .dark-card{padding:22px 16px;}
+  .bh{padding:14px 16px;}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="hi">
+    <div class="badge">🎾 TEXAS PICKLEBALL · ROANOKE TX</div>
+    <h1>Shape Your <span>Court</span></h1>
+    <p>Help us build exactly what the community wants. Anonymous, takes about 3 minutes.</p>
+  </div>
+</div>
+
+<div class="promo">🎁 <strong>Optional:</strong> Share your name at the end and earn <strong>$10 credit</strong> toward open play or court reservations!</div>
+
+<div class="wrap" id="fc">
+
+  <!-- INTERESTS -->
+  <div class="card">
+    <div class="stitle">What Are You Interested In?</div>
+    <div class="ssub">Select all that apply — follow-up questions appear based on your choices.</div>
+    <div class="q">
+      <div class="ql"><span class="dot"></span>Select your interests (choose all that apply)</div>
+      <div class="opts" id="int-opts">
+        <label class="ol"><input type="checkbox" name="interest" value="open-play" onchange="handleInt()"> 🏓 &nbsp;Open Play</label>
+        <label class="ol"><input type="checkbox" name="interest" value="leagues" onchange="handleInt()"> 🏆 &nbsp;Leagues</label>
+        <label class="ol"><input type="checkbox" name="interest" value="court-reservation" onchange="handleInt()"> 📅 &nbsp;Private Court Reservation</label>
+        <label class="ol"><input type="checkbox" name="interest" value="tournaments" onchange="handleInt()"> 💰 &nbsp;Tournaments / Money Balls</label>
+      </div>
+      <div class="err" id="e-int">Please select at least one interest to continue.</div>
+    </div>
+  </div>
+
+  <!-- OPEN PLAY -->
+  <div class="branch" id="branch-open-play">
+    <div class="bh"><span class="bi">🏓</span><span class="bt">Open Play Preferences</span></div>
+    <div class="bb">
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What is your skill level?</div>
+        <div class="opts">
+          <label class="ol"><input type="radio" name="op-skill" value="beginner"> 🌱 &nbsp;Just starting — still figuring out the rules</label>
+          <label class="ol"><input type="radio" name="op-skill" value="intermediate"> 🎯 &nbsp;Rally is pretty good — I can hold my own</label>
+          <label class="ol"><input type="radio" name="op-skill" value="advanced"> ⚡ &nbsp;Court ninja — I play to win</label>
+        </div>
+        <div class="err" id="e-op-skill">Please select your skill level.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Preferred time(s) to play</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="op-time" value="early-morning"> 🌅 &nbsp;Early Bird — 5:00 AM to 8:00 AM</label>
+          <label class="ol"><input type="checkbox" name="op-time" value="morning"> ☀️ &nbsp;Morning — 8:00 AM to 12:00 PM</label>
+          <label class="ol"><input type="checkbox" name="op-time" value="afternoon"> 🌤️ &nbsp;Afternoon — 12:00 PM to 4:00 PM</label>
+          <label class="ol"><input type="checkbox" name="op-time" value="evening"> 🌆 &nbsp;Evening — 4:00 PM to 8:00 PM</label>
+          <label class="ol"><input type="checkbox" name="op-time" value="late-night"> 🌙 &nbsp;Night Owl — 8:00 PM to 11:00 PM</label>
+          <label class="ol"><input type="checkbox" name="op-time" value="allnighter"> 🦉 &nbsp;All-Nighter — 11:00 PM to 7:00 AM</label>
+        </div>
+        <div class="err" id="e-op-time">Please select at least one time.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Preferred day(s) to play</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts g2">
+          <label class="ol"><input type="checkbox" name="op-day" value="monday"> Monday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="tuesday"> Tuesday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="wednesday"> Wednesday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="thursday"> Thursday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="friday"> Friday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="saturday"> Saturday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="sunday"> Sunday</label>
+          <label class="ol"><input type="checkbox" name="op-day" value="any"> Any day works</label>
+        </div>
+        <div class="err" id="e-op-day">Please select at least one day.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Which play format(s) do you prefer?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="op-format" value="paddle-rack"> 🏓 &nbsp;Paddle Rack — casual open play, winner stays</label>
+          <label class="ol"><input type="checkbox" name="op-format" value="round-robin"> 🔄 &nbsp;Organized Round Robin open play (Swish App)</label>
+          <label class="ol"><input type="checkbox" name="op-format" value="dupr"> 📊 &nbsp;DUPR Recorded Games — official rating matches</label>
+        </div>
+        <div class="err" id="e-op-format">Please select at least one format.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>How do you prefer skill level grouping?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="op-group" value="all-levels"> 🌍 &nbsp;All skills, all ages together</label>
+          <label class="ol"><input type="checkbox" name="op-group" value="three-levels"> 🎯 &nbsp;3 levels: Beginner, Intermediate, Advanced</label>
+          <label class="ol"><input type="checkbox" name="op-group" value="two-levels"> ⚖️ &nbsp;Two bands: Beg–Int and Int–Adv</label>
+        </div>
+        <div class="err" id="e-op-group">Please select at least one grouping.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEAGUES -->
+  <div class="branch" id="branch-leagues">
+    <div class="bh"><span class="bi">🏆</span><span class="bt">League Preferences</span></div>
+    <div class="bb">
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What type of league format(s) interest you?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="lg-format" value="dupr-league"> 📊 &nbsp;DUPR-rated league — official rating impact</label>
+          <label class="ol"><input type="checkbox" name="lg-format" value="recreational"> 😄 &nbsp;Recreational — fun, low pressure, social</label>
+          <label class="ol"><input type="checkbox" name="lg-format" value="competitive"> 🥊 &nbsp;Competitive — serious play, standings & prizes</label>
+          <label class="ol"><input type="checkbox" name="lg-format" value="mixed-social"> 🎉 &nbsp;Mixed social — meet new players, casual rotation</label>
+        </div>
+        <div class="err" id="e-lg-format">Please select at least one option.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What partner format do you prefer?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="lg-partner" value="set-partner"> 👫 &nbsp;Set partner — I bring my own doubles partner</label>
+          <label class="ol"><input type="checkbox" name="lg-partner" value="mixed-gender"> ⚧ &nbsp;Mixed gender doubles</label>
+          <label class="ol"><input type="checkbox" name="lg-partner" value="assigned"> 🎲 &nbsp;Assigned partner — facility pairs me up</label>
+          <label class="ol"><input type="checkbox" name="lg-partner" value="singles"> 🧍 &nbsp;Singles league</label>
+        </div>
+        <div class="err" id="e-lg-partner">Please select at least one option.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What skill level(s) should the league target?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="lg-skill" value="beginner"> 🌱 &nbsp;Beginner (2.0–2.5 DUPR)</label>
+          <label class="ol"><input type="checkbox" name="lg-skill" value="intermediate"> 🎯 &nbsp;Intermediate (2.5–3.5 DUPR)</label>
+          <label class="ol"><input type="checkbox" name="lg-skill" value="advanced"> ⚡ &nbsp;Advanced (3.5+ DUPR)</label>
+          <label class="ol"><input type="checkbox" name="lg-skill" value="open"> 🌍 &nbsp;Open — all skill levels</label>
+          <label class="ol"><input type="checkbox" name="lg-skill" value="senior"> 👴 &nbsp;55+ Senior league</label>
+        </div>
+        <div class="err" id="e-lg-skill">Please select at least one option.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Which day(s) work best for league night?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts g2">
+          <label class="ol"><input type="checkbox" name="lg-day" value="monday"> Monday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="tuesday"> Tuesday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="wednesday"> Wednesday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="thursday"> Thursday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="friday"> Friday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="saturday"> Saturday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="sunday"> Sunday</label>
+          <label class="ol"><input type="checkbox" name="lg-day" value="weekends"> Weekends only</label>
+        </div>
+        <div class="err" id="e-lg-day">Please select at least one day.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>How long should a league season run?</div>
+        <div class="opts">
+          <label class="ol"><input type="radio" name="lg-dur" value="4weeks"> 4 weeks — short and sweet</label>
+          <label class="ol"><input type="radio" name="lg-dur" value="6weeks"> 6 weeks — balanced season</label>
+          <label class="ol"><input type="radio" name="lg-dur" value="8weeks"> 8 weeks — full competitive season</label>
+          <label class="ol"><input type="radio" name="lg-dur" value="no-pref"> No preference</label>
+        </div>
+        <div class="err" id="e-lg-dur">Please select a duration.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURT RESERVATION -->
+  <div class="branch" id="branch-court-reservation">
+    <div class="bh"><span class="bi">📅</span><span class="bt">Private Court Reservation Preferences</span></div>
+    <div class="bb">
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>How do you typically use a private court?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="cr-use" value="drilling"> 🔁 &nbsp;Drilling and skill practice with a partner</label>
+          <label class="ol"><input type="checkbox" name="cr-use" value="lesson"> 👨‍🏫 &nbsp;Private or group coaching lesson</label>
+          <label class="ol"><input type="checkbox" name="cr-use" value="casual"> 👥 &nbsp;Casual games with friends/family</label>
+          <label class="ol"><input type="checkbox" name="cr-use" value="competitive"> ⚡ &nbsp;Serious competitive match practice</label>
+          <label class="ol"><input type="checkbox" name="cr-use" value="corporate"> 💼 &nbsp;Corporate / team event</label>
+        </div>
+        <div class="err" id="e-cr-use">Please select at least one option.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>How often do you plan to reserve a private court?</div>
+        <div class="opts">
+          <label class="ol"><input type="radio" name="cr-freq" value="daily"> Daily or almost daily</label>
+          <label class="ol"><input type="radio" name="cr-freq" value="few-week"> A few times per week</label>
+          <label class="ol"><input type="radio" name="cr-freq" value="weekly"> Once a week</label>
+          <label class="ol"><input type="radio" name="cr-freq" value="biweekly"> A couple times a month</label>
+          <label class="ol"><input type="radio" name="cr-freq" value="occasional"> Occasionally / as needed</label>
+        </div>
+        <div class="err" id="e-cr-freq">Please select a frequency.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Preferred time slot(s) for reservations</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="cr-time" value="early-morning"> 🌅 &nbsp;Early Bird — 5:00 AM to 8:00 AM</label>
+          <label class="ol"><input type="checkbox" name="cr-time" value="morning"> ☀️ &nbsp;Morning — 8:00 AM to 12:00 PM</label>
+          <label class="ol"><input type="checkbox" name="cr-time" value="afternoon"> 🌤️ &nbsp;Afternoon — 12:00 PM to 4:00 PM</label>
+          <label class="ol"><input type="checkbox" name="cr-time" value="evening"> 🌆 &nbsp;Evening — 4:00 PM to 8:00 PM</label>
+          <label class="ol"><input type="checkbox" name="cr-time" value="late-night"> 🌙 &nbsp;Night Owl — 8:00 PM to 11:00 PM</label>
+        </div>
+        <div class="err" id="e-cr-time">Please select at least one time.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What would make private reservations more attractive?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="cr-improve" value="lower-price"> 💲 &nbsp;Lower pricing during off-peak hours</label>
+          <label class="ol"><input type="checkbox" name="cr-improve" value="bundles"> 📦 &nbsp;Court bundles — buy 10 hrs, get 2 free</label>
+          <label class="ol"><input type="checkbox" name="cr-improve" value="ball-machine"> 🤖 &nbsp;Ball machine rental availability</label>
+          <label class="ol"><input type="checkbox" name="cr-improve" value="coaching-add"> 👨‍🏫 &nbsp;Easy add-on coaching when booking</label>
+          <label class="ol"><input type="checkbox" name="cr-improve" value="locker"> 🔒 &nbsp;Locker storage for regular players</label>
+          <label class="ol"><input type="checkbox" name="cr-improve" value="food-drink"> 🥤 &nbsp;Food & drink ordering from the court</label>
+        </div>
+        <div class="err" id="e-cr-improve">Please select at least one option.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOURNAMENTS -->
+  <div class="branch" id="branch-tournaments">
+    <div class="bh"><span class="bi">💰</span><span class="bt">Tournament / Money Ball Preferences</span></div>
+    <div class="bb">
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Which type of tournament(s) interest you?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="tn-type" value="dupr"> 📊 &nbsp;DUPR-rated — official rating impact</label>
+          <label class="ol"><input type="checkbox" name="tn-type" value="moneyball" onchange="toggleMB()"> 💰 &nbsp;Money Ball — cash prize tournament</label>
+          <div class="subs" id="mb-sub">
+            <label class="sl"><input type="checkbox" name="tn-mb" value="25-150"> 💵 &nbsp;$25/person entry — $150 prize pot</label>
+            <label class="sl"><input type="checkbox" name="tn-mb" value="50-300"> 💵💵 &nbsp;$50/person entry — $300 prize pot</label>
+            <label class="sl"><input type="checkbox" name="tn-mb" value="80-1200"> 💵💵💵 &nbsp;$80/person entry — $1,200 prize pot</label>
+          </div>
+          <label class="ol"><input type="checkbox" name="tn-type" value="recognition"> 🎖️ &nbsp;Recognition tournament — trophy/bragging rights only</label>
+        </div>
+        <div class="err" id="e-tn-type">Please select at least one type.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>What tournament format(s) do you prefer?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts">
+          <label class="ol"><input type="checkbox" name="tn-format" value="set-any"> 👫 &nbsp;Set partner — any gender doubles</label>
+          <label class="ol"><input type="checkbox" name="tn-format" value="set-mixed"> ⚧ &nbsp;Set partner — mixed gender doubles</label>
+          <label class="ol"><input type="checkbox" name="tn-format" value="age-based"> 👴 &nbsp;Age-based brackets</label>
+          <label class="ol"><input type="checkbox" name="tn-format" value="skill-based"> 🎯 &nbsp;Skill-based brackets (by DUPR rating)</label>
+          <label class="ol"><input type="checkbox" name="tn-format" value="singles"> 🧍 &nbsp;Singles bracket</label>
+          <label class="ol"><input type="checkbox" name="tn-format" value="round-robin"> 🔄 &nbsp;Round robin pool play into brackets</label>
+        </div>
+        <div class="err" id="e-tn-format">Please select at least one format.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>Which day(s) work best for tournaments?</div>
+        <div class="qh">Select all that apply</div>
+        <div class="opts g2">
+          <label class="ol"><input type="checkbox" name="tn-day" value="friday-eve"> Friday eve</label>
+          <label class="ol"><input type="checkbox" name="tn-day" value="sat-day"> Saturday day</label>
+          <label class="ol"><input type="checkbox" name="tn-day" value="sat-eve"> Saturday eve</label>
+          <label class="ol"><input type="checkbox" name="tn-day" value="sun-day"> Sunday day</label>
+          <label class="ol"><input type="checkbox" name="tn-day" value="sun-eve"> Sunday eve</label>
+          <label class="ol"><input type="checkbox" name="tn-day" value="weekday-eve"> Weekday eves</label>
+        </div>
+        <div class="err" id="e-tn-day">Please select at least one day.</div>
+      </div>
+      <div class="bq">
+        <div class="ql"><span class="dot"></span>How often would you like tournaments to run?</div>
+        <div class="opts">
+          <label class="ol"><input type="radio" name="tn-freq" value="weekly"> Every week</label>
+          <label class="ol"><input type="radio" name="tn-freq" value="biweekly"> Every 2 weeks</label>
+          <label class="ol"><input type="radio" name="tn-freq" value="monthly"> Once a month</label>
+          <label class="ol"><input type="radio" name="tn-freq" value="quarterly"> Quarterly — bigger events</label>
+        </div>
+        <div class="err" id="e-tn-freq">Please select a frequency.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="dark-card">
+    <div class="stitle">One Last Question</div>
+    <div class="ssub">Your honest answer helps us improve the most.</div>
+    <div class="q">
+      <div class="ql"><span class="dot"></span>What prevents you from playing more frequently at Texas Pickleball?</div>
+      <div class="qh">Select all that apply</div>
+      <div class="opts">
+        <label class="ol"><input type="checkbox" name="barrier" value="other-facility"> 🏢 &nbsp;Already committed to another facility</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="love-it"> ❤️ &nbsp;Nothing — I love playing at Texas Pickleball!</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="too-high"> ⬆️ &nbsp;Level of play is too high for me</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="too-low"> ⬇️ &nbsp;Level of play is too low / not challenging</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="schedule"> 🕐 &nbsp;Schedule / open play times don't fit me</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="cost"> 💲 &nbsp;Cost — pricing feels too high</label>
+        <label class="ol"><input type="checkbox" name="barrier" value="courts-full"> 📋 &nbsp;Courts are often full when I want to play</label>
+      </div>
+      <div class="err" id="e-barrier">Please select at least one option.</div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL NAME -->
+  <div class="credit">
+    <div class="cicon">🎁</div>
+    <div style="flex:1">
+      <div class="ctitle">Want $10 credit on your account?</div>
+      <div class="ctext">This form is <strong>100% anonymous</strong>. But if you share your name, we'll add <strong>$10 credit</strong> usable on open play or court reservations. Completely optional.</div>
+      <input type="text" class="cinput" id="opt-name" placeholder="Your first name only (optional)">
+    </div>
+  </div>
+
+  <button class="sbtn" onclick="doSubmit()">SUBMIT MY FEEDBACK 🎾</button>
+  <div class="pnote"><strong>Your privacy matters.</strong> No email, phone, or account info collected unless you share your name above.<br>All responses are anonymous and used only to improve your Texas Pickleball experience.</div>
+</div>
+
+<div class="wrap">
+  <div class="success" id="success">
+    <div class="sico">🎾</div>
+    <div class="stit">Thank You!</div>
+    <p class="stxt">Your feedback has been recorded. We'll use your input to shape the programs, times, and events our community actually wants.<br><br>See you on the courts!</p>
+  </div>
+</div>
+
+<script>
+const SK='txpb_v2';
+function handleInt(){
+  document.querySelectorAll('input[name="interest"]').forEach(cb=>{
+    const b=document.getElementById('branch-'+cb.value);
+    if(b) b.classList.toggle('show',cb.checked);
+    cb.closest('.ol').classList.toggle('on',cb.checked);
+  });
+}
+function toggleMB(){
+  const cb=document.querySelector('input[value="moneyball"]');
+  document.getElementById('mb-sub').classList.toggle('show',cb.checked);
+}
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.type==='radio'){
+    document.querySelectorAll(`input[name="${t.name}"]`).forEach(i=>i.closest('.ol')?.classList.remove('on'));
+  }
+  if(t.type==='checkbox'||t.type==='radio'){
+    t.closest('.ol')?.classList.toggle('on',t.checked);
+    t.closest('.sl')?.classList.toggle('on',t.checked);
+  }
+});
+const gc=n=>[...document.querySelectorAll(`input[name="${n}"]:checked`)].map(i=>i.value);
+const gr=n=>document.querySelector(`input[name="${n}"]:checked`)?.value||null;
+const se=(id,v)=>{const e=document.getElementById(id);if(e)e.style.display=v?'block':'none';};
+
+function doSubmit(){
+  const ints=gc('interest');
+  if(!ints.length){se('e-int',1);document.getElementById('e-int').scrollIntoView({behavior:'smooth',block:'center'});return;}
+  se('e-int',0);
+  let ok=true;
+  const chk=(fail,id)=>{se(id,fail);if(fail)ok=false;};
+
+  if(ints.includes('open-play')){
+    chk(!gr('op-skill'),'e-op-skill');
+    chk(!gc('op-time').length,'e-op-time');
+    chk(!gc('op-day').length,'e-op-day');
+    chk(!gc('op-format').length,'e-op-format');
+    chk(!gc('op-group').length,'e-op-group');
+  }
+  if(ints.includes('leagues')){
+    chk(!gc('lg-format').length,'e-lg-format');
+    chk(!gc('lg-partner').length,'e-lg-partner');
+    chk(!gc('lg-skill').length,'e-lg-skill');
+    chk(!gc('lg-day').length,'e-lg-day');
+    chk(!gr('lg-dur'),'e-lg-dur');
+  }
+  if(ints.includes('court-reservation')){
+    chk(!gc('cr-use').length,'e-cr-use');
+    chk(!gr('cr-freq'),'e-cr-freq');
+    chk(!gc('cr-time').length,'e-cr-time');
+    chk(!gc('cr-improve').length,'e-cr-improve');
+  }
+  if(ints.includes('tournaments')){
+    chk(!gc('tn-type').length,'e-tn-type');
+    chk(!gc('tn-format').length,'e-tn-format');
+    chk(!gc('tn-day').length,'e-tn-day');
+    chk(!gr('tn-freq'),'e-tn-freq');
+  }
+  chk(!gc('barrier').length,'e-barrier');
+
+  if(!ok){const fe=document.querySelector('.err[style*="block"]');if(fe)fe.scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+  const r={
+    ts:new Date().toISOString(),
+    name:document.getElementById('opt-name').value.trim()||null,
+    interests:ints,
+    op:ints.includes('open-play')?{skill:gr('op-skill'),times:gc('op-time'),days:gc('op-day'),formats:gc('op-format'),grouping:gc('op-group')}:null,
+    lg:ints.includes('leagues')?{formats:gc('lg-format'),partner:gc('lg-partner'),skill:gc('lg-skill'),days:gc('lg-day'),duration:gr('lg-dur')}:null,
+    cr:ints.includes('court-reservation')?{use:gc('cr-use'),freq:gr('cr-freq'),times:gc('cr-time'),improve:gc('cr-improve')}:null,
+    tn:ints.includes('tournaments')?{types:gc('tn-type'),mbTiers:gc('tn-mb'),formats:gc('tn-format'),days:gc('tn-day'),freq:gr('tn-freq')}:null,
+    barriers:gc('barrier')
+  };
+
+  // Show success immediately — don't make user wait for network
+  document.getElementById('fc').style.display='none';
+  document.getElementById('success').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Send to Google Sheets via Apps Script
+  const GAS_URL='https://script.google.com/macros/s/AKfycbwvy_9Fpa5QWiVWO1CFvWbIs3TJ0N6sKdPIU96X8KESadF9chHgevhsNRdbLo92bsvD/exec';
+  fetch(GAS_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(r)
+  }).catch(()=>{});
+
+  // Also keep local backup
+  try{const d=JSON.parse(localStorage.getItem(SK)||'[]');d.push(r);localStorage.setItem(SK,JSON.stringify(d));}catch(e){}
+}
+</script>
+</body>
+</html>
